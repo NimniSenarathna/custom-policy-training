@@ -49,6 +49,38 @@
                     <Protocol Name="SAML2" PartnerClaimType="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" />
                 </DefaultPartnerClaimTypes>
             </ClaimType>
+
+            <ClaimType Id="accountType">
+                <DisplayName>Account type</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>The type of account been registered.</UserHelpText>
+                <UserInputType>DropdownSingleSelect</UserInputType>
+                <Restriction>
+                    <Enumeration Text="Company account" Value="company" SelectByDefault="false" />
+                    <Enumeration Text="Individual account" Value="individual" SelectByDefault="true" />
+                </Restriction>
+            </ClaimType>
+
+            <ClaimType Id="email">
+                <DisplayName>Email Address</DisplayName>
+                <DataType>string</DataType>
+                <DefaultPartnerClaimTypes>
+                    <Protocol Name="OpenIdConnect" PartnerClaimType="email" />
+                </DefaultPartnerClaimTypes>
+                <UserHelpText>The email address that can be used to contact you.</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+                <Restriction>
+                    <Pattern RegularExpression="^[a-zA-Z0-9.!#$%&amp;'^_`{}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" HelpText="Please enter a valid email address." />
+                </Restriction>
+            </ClaimType>
+
+            <ClaimType Id="password">
+                <DisplayName>Password</DisplayName>
+                <DataType>string</DataType>
+                <AdminHelpText>Enter password</AdminHelpText>
+                <UserHelpText>Enter password</UserHelpText>
+                <UserInputType>Password</UserInputType>
+            </ClaimType>
             </ClaimsSchema>
 
             <ClaimsTransformations>
@@ -190,10 +222,14 @@
                 <DisplayClaims>
                     <DisplayClaim ClaimTypeReferenceId="givenName" Required="true"/>
                     <DisplayClaim ClaimTypeReferenceId="surname"  Required="true"/>
+                    <DisplayClaim ClaimTypeReferenceId="accountType" Required="true"/>
+                    <DisplayClaim ClaimTypeReferenceId="email" Required="true"/>
                 </DisplayClaims>
                 <OutputClaims>
                     <OutputClaim ClaimTypeReferenceId="givenName"/>
                     <OutputClaim ClaimTypeReferenceId="surname"/>
+                    <OutputClaim ClaimTypeReferenceId="accountType"/>
+                    <OutputClaim ClaimTypeReferenceId="email"/>
                 </OutputClaims>
                 </TechnicalProfile>
             </TechnicalProfiles>
@@ -233,6 +269,7 @@
               <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub"/>
               <OutputClaim ClaimTypeReferenceId="displayName"/>
               <OutputClaim ClaimTypeReferenceId="message" />
+              <OutputClaim ClaimTypeReferenceId="email"/>
             </OutputClaims>
 
             <SubjectNamingInfo ClaimType="sub" />
