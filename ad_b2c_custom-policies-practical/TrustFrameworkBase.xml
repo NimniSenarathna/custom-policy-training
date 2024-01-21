@@ -270,8 +270,8 @@
               <OutputClaim ClaimTypeReferenceId="displayName"/>
               <OutputClaim ClaimTypeReferenceId="message" />
               <OutputClaim ClaimTypeReferenceId="email"/>
+              <OutputClaim ClaimTypeReferenceId="accountType"/>
             </OutputClaims>
-
             <SubjectNamingInfo ClaimType="sub" />
         </TechnicalProfile>
     </RelyingParty>
